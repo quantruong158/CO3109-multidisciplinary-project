@@ -11,16 +11,13 @@ export async function login(prevState: FormState, formData: FormData) {
     email: formData.get('email')?.toString()!,
     password: formData.get('password')?.toString()!,
   })
-  const res = await fetch(
-    'https://dadn-namhoangg.vercel.app/api/account/login',
-    {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      body: data,
+  const res = await fetch(`${process.env.BACKEND_URL}/api/account/login`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
     },
-  )
+    body: data,
+  })
   const responseData = await res.json()
   if (responseData.code == 200) {
     const token = responseData.token
@@ -46,16 +43,13 @@ export async function register(prevState: FormState, formData: FormData) {
     fullName:
       formData.get('fname')?.toString()! + formData.get('lname')?.toString()!,
   })
-  const res = await fetch(
-    'https://dadn-namhoangg.vercel.app/api/account/register',
-    {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      body: data,
+  const res = await fetch(`${process.env.BACKEND_URL}/api/account/register`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
     },
-  )
+    body: data,
+  })
   const responseData = await res.json()
   const mes: FormState = {
     type: responseData.code === 200 ? 'success' : 'fail',
