@@ -9,7 +9,7 @@ import { Menu, AreaChart, Settings2, User, Home } from 'lucide-react'
 import { redirect } from 'next/navigation'
 import { Button } from '../ui/button'
 import { logout } from '@/actions'
-import NavLinks from './navlinks'
+import NavLinks from './nav-links'
 
 const NavBar = () => {
   const onLogoutSubmit = async (formData: FormData) => {

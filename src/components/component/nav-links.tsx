@@ -14,7 +14,7 @@ const NavLinks = () => {
       <li>
         <Link
           href='/devices'
-          className={pathname === '/devices' ? 'text-black' : ''}
+          className={pathname.startsWith('/devices') ? 'text-black' : ''}
         >
           Devices
         </Link>
@@ -22,7 +22,7 @@ const NavLinks = () => {
       <li>
         <Link
           href='/account'
-          className={pathname === '/account' ? 'text-black' : ''}
+          className={pathname.startsWith('/account') ? 'text-black' : ''}
         >
           Account
         </Link>
