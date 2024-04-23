@@ -8,7 +8,7 @@ export async function getAllFeeds() {
       cache: 'no-cache',
       headers: {
         'X-AIO-Key': process.env.ADA_KEY,
-      } as HeadersInit, // Add the type assertion here
+      } as HeadersInit,
     },
   )
   const data = await res.json()

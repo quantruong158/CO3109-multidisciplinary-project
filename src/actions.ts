@@ -64,7 +64,6 @@ export async function logout() {
 
 export async function toggleInLED(prevState: FormState, formData: FormData) {
   const value = formData.get('value')
-  console.log('here:', value)
   const toggled_value = value === '1' ? '0' : '1'
   const res = await fetch(
     `https://io.adafruit.com/api/v2/${process.env.ADA_USERNAME}/feeds/in-led/data`,
