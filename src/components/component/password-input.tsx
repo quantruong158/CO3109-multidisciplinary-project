@@ -15,6 +15,7 @@ const PasswordInput = ({ value }: { value?: string }) => {
         value={value}
         type={isHiding ? 'password' : 'text'}
         contentEditable={false}
+        readOnly
       />
       <Button onClick={toggleVisibility}>
         {isHiding ? <EyeOff /> : <Eye />}

@@ -8,7 +8,9 @@ const Password = ({ value }: { value: string }) => {
   const [isHiding, setIsHiding] = useState(true)
   return (
     <div className='flex flex-col items-end gap-2'>
-      <p className='mt-2 text-end text-4xl font-extrabold text-red-800 md:text-5xl'>
+      <p
+        className={`mt-2 text-end text-4xl font-extrabold ${isHiding ? 'text-red-700' : 'text-green-500'} md:text-5xl`}
+      >
         {isHiding ? '*'.repeat(value.length) : value}
       </p>
       <Button

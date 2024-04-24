@@ -26,7 +26,7 @@ export default async function Home() {
   }
 
   return (
-    <main className='mt-32 flex w-full items-center justify-center'>
+    <main className='mt-20 flex w-full items-center justify-center'>
       <Dashboard
         temp_value={dict['temp']!}
         humidity_value={dict['humidity']!}

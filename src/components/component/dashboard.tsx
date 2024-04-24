@@ -25,9 +25,13 @@ const Dashboard = ({
   password_value,
 }: DashboardProps) => {
   const led_ui = (
-    <div className='mt-2 flex flex-col flex-wrap justify-end text-end text-4xl font-extrabold text-red-800 md:text-4xl'>
-      <span className='text-nowrap'>{`In: ${inled_value === '0' ? 'OFF' : 'ON'}`}</span>
-      <span className='text-nowrap'>{`Out: ${outled_value === '0' ? 'OFF' : 'ON'}`}</span>
+    <div className='mt-2 flex flex-col flex-wrap justify-end text-end text-4xl font-extrabold text-red-700 md:text-4xl'>
+      <span
+        className={`text-nowrap ${inled_value === '0' ? 'text-red-700' : 'text-green-500'}`}
+      >{`In: ${inled_value === '0' ? 'OFF' : 'ON'}`}</span>
+      <span
+        className={`text-nowrap ${outled_value === '0' ? 'text-red-700' : 'text-green-500'}`}
+      >{`Out: ${outled_value === '0' ? 'OFF' : 'ON'}`}</span>
     </div>
   )
   const items = [
@@ -48,7 +52,7 @@ const Dashboard = ({
     {
       title: 'Lighting',
       description: 'Current lighting recorded by the sensor.',
-      value: `${light_value}`,
+      value: `${light_value}%`,
       has_settings: false,
       link: '',
     },
@@ -56,22 +60,27 @@ const Dashboard = ({
       title: 'LED',
       description:
         'Current state of the LED lights inside and outside the house.',
-      // value: `In: ${inled_value === '0' ? 'OFF' : 'ON'} / Out: ${outled_value === '0' ? 'OFF' : 'ON'}`,
       custom_ui: led_ui,
       has_settings: true,
       link: '/devices/led',
     },
     {
       title: 'Fan',
-      description: 'Current state of the fan inside the house.',
-      value: `${fan_value === '0' ? 'OFF' : 'ON'}`,
+      description: 'Current speed of the fan.',
+      value: `${fan_value}%`,
       has_settings: true,
       link: '/devices/fan',
     },
     {
       title: 'Servo',
       description: 'Control the servo motor to open and close the door.',
-      value: `${servo_value === '0' ? 'CLOSED' : 'OPEN'}`,
+      custom_ui: (
+        <p
+          className={`mt-2 text-end text-4xl font-extrabold md:text-5xl ${servo_value === '0' ? 'text-red-700' : 'text-green-500'}`}
+        >
+          {servo_value === '0' ? 'CLOSED' : 'OPEN'}
+        </p>
+      ),
       has_settings: true,
       link: '/devices/servo',
     },

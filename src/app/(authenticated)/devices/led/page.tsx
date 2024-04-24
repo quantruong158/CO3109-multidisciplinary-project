@@ -7,7 +7,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
-import LedSwitch from '@/components/component/led-switch'
+import ToggleSwitch from '@/components/component/toggle-switch'
 import { getLastDataFromFeed } from '@/lib'
 import { toggleInLED, toggleOutLED } from '@/actions'
 
@@ -29,7 +29,7 @@ const page = async () => {
           <CardDescription>Toggle the inside LED.</CardDescription>
         </CardHeader>
         <CardContent className='flex space-y-2'>
-          <LedSwitch init_value={inled_value} post_function={toggleInLED} />
+          <ToggleSwitch init_value={inled_value} post_function={toggleInLED} />
         </CardContent>
       </Card>
       <Card className='bg-opacity-50 backdrop-blur-sm'>
@@ -38,7 +38,10 @@ const page = async () => {
           <CardDescription>Toggle the outside LED.</CardDescription>
         </CardHeader>
         <CardContent className='flex justify-end space-y-2'>
-          <LedSwitch init_value={outled_value} post_function={toggleOutLED} />
+          <ToggleSwitch
+            init_value={outled_value}
+            post_function={toggleOutLED}
+          />
         </CardContent>
       </Card>
     </div>

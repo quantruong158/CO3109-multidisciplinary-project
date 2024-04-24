@@ -65,7 +65,7 @@ export const BentoGridItem = ({
         </div>
         {custom_ui}
         {value && (
-          <p className='mt-2 text-end text-4xl font-extrabold text-red-800 md:text-5xl'>
+          <p className='mt-2 text-end text-4xl font-extrabold text-red-700 md:text-5xl'>
             {value}
           </p>
         )}

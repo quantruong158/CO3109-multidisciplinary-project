@@ -5,7 +5,7 @@ import { useFormState } from 'react-dom'
 import { useRouter } from 'next/navigation'
 import { useToast } from '../ui/use-toast'
 
-const LedSwitch = ({
+const ToggleSwitch = ({
   init_value,
   post_function,
 }: {
@@ -42,4 +42,4 @@ const LedSwitch = ({
   )
 }
 
-export default LedSwitch
+export default ToggleSwitch
