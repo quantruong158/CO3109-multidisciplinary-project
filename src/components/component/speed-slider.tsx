@@ -5,15 +5,16 @@ import { Button } from '../ui/button'
 import { useRouter } from 'next/navigation'
 import { useToast } from '../ui/use-toast'
 import { useFormState, useFormStatus } from 'react-dom'
-import { changeFanSpeed } from '@/actions'
+import { changeDeviceValue } from '@/actions'
 
 const SpeedSlider = ({ value }: { value: number }) => {
   const [currentValue, setCurrentValue] = useState(value)
   const router = useRouter()
   const { toast } = useToast()
-  const [state, formAction] = useFormState(changeFanSpeed, {
+  const [state, formAction] = useFormState(changeDeviceValue, {
     type: '',
     value: value.toString(),
+    key: 'fan',
   })
   useEffect(() => {
     if (state.type !== '') {

@@ -4,21 +4,22 @@ import { Switch } from '../ui/switch'
 import { useFormState, useFormStatus } from 'react-dom'
 import { useRouter } from 'next/navigation'
 import { useToast } from '../ui/use-toast'
+import { toggleDevice } from '@/actions'
 
 const ToggleSwitch = ({
   init_value,
-  post_function,
+  device_key,
 }: {
   init_value: boolean
-  post_function: any
+  device_key: string
 }) => {
   const router = useRouter()
   const { toast } = useToast()
   const [value, setValue] = useState(init_value)
-  const { pending } = useFormStatus()
-  const [state, formAction] = useFormState(post_function, {
+  const [state, formAction] = useFormState(toggleDevice, {
     type: '',
     value: value ? '1' : '0',
+    key: device_key,
   })
   useEffect(() => {
     if (state.type !== '') {

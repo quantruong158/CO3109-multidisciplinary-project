@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { Input } from '../ui/input'
 import { Eye, EyeOff } from 'lucide-react'
 import { Button } from '../ui/button'
-import { changeDoorPassword } from '@/actions'
+import { changeDeviceValue } from '@/actions'
 import { useFormState, useFormStatus } from 'react-dom'
 import { useToast } from '../ui/use-toast'
 import { useRouter } from 'next/navigation'
@@ -16,9 +16,10 @@ const PasswordForm = () => {
     e.preventDefault()
     setIsHiding((prev) => !prev)
   }
-  const [state, formAction] = useFormState(changeDoorPassword, {
+  const [state, formAction] = useFormState(changeDeviceValue, {
     type: '',
     value: '',
+    key: 'password'
   })
   useEffect(() => {
     if (state.type !== '' && state.value !== '') {

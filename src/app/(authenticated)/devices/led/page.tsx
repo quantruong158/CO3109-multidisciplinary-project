@@ -9,7 +9,6 @@ import {
 } from '@/components/ui/card'
 import ToggleSwitch from '@/components/component/toggle-switch'
 import { getLastDataFromFeed } from '@/lib'
-import { toggleInLED, toggleOutLED } from '@/actions'
 
 export const metadata: Metadata = {
   title: 'Manage LED',
@@ -29,7 +28,7 @@ const page = async () => {
           <CardDescription>Toggle the inside LED.</CardDescription>
         </CardHeader>
         <CardContent className='flex space-y-2'>
-          <ToggleSwitch init_value={inled_value} post_function={toggleInLED} />
+          <ToggleSwitch init_value={inled_value} device_key='in-led' />
         </CardContent>
       </Card>
       <Card className='bg-opacity-50 backdrop-blur-sm'>
@@ -38,10 +37,7 @@ const page = async () => {
           <CardDescription>Toggle the outside LED.</CardDescription>
         </CardHeader>
         <CardContent className='flex justify-end space-y-2'>
-          <ToggleSwitch
-            init_value={outled_value}
-            post_function={toggleOutLED}
-          />
+          <ToggleSwitch init_value={outled_value} device_key='led' />
         </CardContent>
       </Card>
     </div>

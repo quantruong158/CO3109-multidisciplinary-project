@@ -8,7 +8,6 @@ import {
 } from '@/components/ui/card'
 import ToggleSwitch from '@/components/component/toggle-switch'
 import { getLastDataFromFeed } from '@/lib'
-import { toggleServo } from '@/actions'
 
 export const metadata: Metadata = {
   title: 'Manage LED',
@@ -25,7 +24,7 @@ const page = async () => {
         <CardDescription>Toggle the Servo.</CardDescription>
       </CardHeader>
       <CardContent className='flex space-y-2'>
-        <ToggleSwitch init_value={servo_value} post_function={toggleServo} />
+        <ToggleSwitch init_value={servo_value} device_key='servo' />
       </CardContent>
     </Card>
   )

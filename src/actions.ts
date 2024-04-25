@@ -4,6 +4,7 @@ import { cookies } from 'next/headers'
 type FormState = {
   type: string
   value: string
+  key?: string
 }
 
 export async function login(prevState: FormState, formData: FormData) {
@@ -62,57 +63,21 @@ export async function logout() {
   cookies().set('token', '', { expires: new Date(0) })
 }
 
-export async function toggleInLED(prevState: FormState, formData: FormData) {
-  const value = formData.get('value')
-  const toggled_value = value === '1' ? '0' : '1'
-  const res = await fetch(
-    `https://io.adafruit.com/api/v2/${process.env.ADA_USERNAME}/feeds/in-led/data`,
-    {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-AIO-Key': process.env.ADA_KEY,
-      } as HeadersInit,
-      body: JSON.stringify({ value: toggled_value }),
-    },
-  )
-  const responseData = await res.json()
-  const mes: FormState = {
-    type: res.status === 200 ? 'success' : 'fail',
-    value: responseData.value,
-  }
-  return mes
-}
-
-export async function toggleOutLED(prevState: FormState, formData: FormData) {
-  const value = formData.get('value')
-  const toggled_value = value === '1' ? '0' : '1'
-  const res = await fetch(
-    `https://io.adafruit.com/api/v2/${process.env.ADA_USERNAME}/feeds/led/data`,
-    {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-AIO-Key': process.env.ADA_KEY,
-      } as HeadersInit,
-      body: JSON.stringify({ value: toggled_value }),
-    },
-  )
-  const responseData = await res.json()
-  const mes: FormState = {
-    type: res.status === 200 ? 'success' : 'fail',
-    value: responseData.value,
-  }
-  return mes
-}
-
-export async function changeDoorPassword(
+export async function changeDeviceValue(
   prevState: FormState,
   formData: FormData,
 ) {
   const value = formData.get('value')
+  const key = prevState.key
+  if (!key) {
+    const mes: FormState = {
+      type: 'fail',
+      value: 'Key not found',
+    }
+    return mes
+  }
   const res = await fetch(
-    `https://io.adafruit.com/api/v2/${process.env.ADA_USERNAME}/feeds/password/data`,
+    `https://io.adafruit.com/api/v2/${process.env.ADA_USERNAME}/feeds/${key}/data`,
     {
       method: 'POST',
       headers: {
@@ -130,11 +95,19 @@ export async function changeDoorPassword(
   return mes
 }
 
-export async function toggleServo(prevState: FormState, formData: FormData) {
+export async function toggleDevice(prevState: FormState, formData: FormData) {
   const value = formData.get('value')
+  const key = prevState.key
+  if (!key) {
+    const mes: FormState = {
+      type: 'fail',
+      value: 'Key not found',
+    }
+    return mes
+  }
   const toggled_value = value === '1' ? '0' : '1'
   const res = await fetch(
-    `https://io.adafruit.com/api/v2/${process.env.ADA_USERNAME}/feeds/servo/data`,
+    `https://io.adafruit.com/api/v2/${process.env.ADA_USERNAME}/feeds/${key}/data`,
     {
       method: 'POST',
       headers: {
@@ -142,30 +115,6 @@ export async function toggleServo(prevState: FormState, formData: FormData) {
         'X-AIO-Key': process.env.ADA_KEY,
       } as HeadersInit,
       body: JSON.stringify({ value: toggled_value }),
-    },
-  )
-  const responseData = await res.json()
-  const mes: FormState = {
-    type: res.status === 200 ? 'success' : 'fail',
-    value: responseData.value,
-  }
-  return mes
-}
-
-export async function changeFanSpeed(
-  prevState: FormState,
-  formData: FormData,
-) {
-  const value = formData.get('value')
-  const res = await fetch(
-    `https://io.adafruit.com/api/v2/${process.env.ADA_USERNAME}/feeds/fan/data`,
-    {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-AIO-Key': process.env.ADA_KEY,
-      } as HeadersInit,
-      body: JSON.stringify({ value }),
     },
   )
   const responseData = await res.json()
