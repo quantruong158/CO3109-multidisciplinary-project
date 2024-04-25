@@ -4,7 +4,7 @@ import { Input } from '../ui/input'
 import { Eye, EyeOff } from 'lucide-react'
 import { Button } from '../ui/button'
 import { changeDoorPassword } from '@/actions'
-import { useFormState } from 'react-dom'
+import { useFormState, useFormStatus } from 'react-dom'
 import { useToast } from '../ui/use-toast'
 import { useRouter } from 'next/navigation'
 
@@ -37,8 +37,17 @@ const PasswordForm = () => {
           {isHiding ? <EyeOff /> : <Eye />}
         </Button>
       </div>
-      <Button type='submit'>Save</Button>
+      <Submit />
     </form>
+  )
+}
+
+function Submit() {
+  const { pending } = useFormStatus()
+  return (
+    <Button disabled={pending} type='submit'>
+      {pending ? 'Saving...' : 'Save'}
+    </Button>
   )
 }
 

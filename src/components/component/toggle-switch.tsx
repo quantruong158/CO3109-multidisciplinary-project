@@ -1,7 +1,7 @@
 'use client'
 import { useEffect, useRef, useState } from 'react'
 import { Switch } from '../ui/switch'
-import { useFormState } from 'react-dom'
+import { useFormState, useFormStatus } from 'react-dom'
 import { useRouter } from 'next/navigation'
 import { useToast } from '../ui/use-toast'
 
@@ -15,6 +15,7 @@ const ToggleSwitch = ({
   const router = useRouter()
   const { toast } = useToast()
   const [value, setValue] = useState(init_value)
+  const { pending } = useFormStatus()
   const [state, formAction] = useFormState(post_function, {
     type: '',
     value: value ? '1' : '0',
@@ -32,13 +33,21 @@ const ToggleSwitch = ({
 
   return (
     <form action={formAction}>
-      <Switch
-        type='submit'
-        name='value'
-        value={value ? '1' : '0'}
-        checked={value}
-      />
+      <Submit value={value} />
     </form>
+  )
+}
+
+function Submit({ value }: { value: boolean }) {
+  const { pending } = useFormStatus()
+  return (
+    <Switch
+      disabled={pending}
+      type='submit'
+      name='value'
+      value={value ? '1' : '0'}
+      checked={value}
+    />
   )
 }
 

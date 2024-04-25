@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { Button } from '../ui/button'
 import { useRouter } from 'next/navigation'
 import { useToast } from '../ui/use-toast'
-import { useFormState } from 'react-dom'
+import { useFormState, useFormStatus } from 'react-dom'
 import { changeFanSpeed } from '@/actions'
 
 const SpeedSlider = ({ value }: { value: number }) => {
@@ -37,8 +37,17 @@ const SpeedSlider = ({ value }: { value: number }) => {
         }}
       />
       <p className='font-semibold'>Current Value: {currentValue}%</p>
-      <Button type='submit'>Save</Button>
+      <Submit />
     </form>
+  )
+}
+
+function Submit() {
+  const { pending } = useFormStatus()
+  return (
+    <Button disabled={pending} type='submit'>
+      {pending ? 'Saving...' : 'Save'}
+    </Button>
   )
 }
 
