@@ -76,6 +76,25 @@ export async function changeDeviceValue(
     }
     return mes
   }
+  if (key == 'password' && value!.toString().length > 4) {
+    const mes: FormState = {
+      type: 'fail',
+      value: 'Password must be less than 5 characters!',
+      key: key,
+    }
+    return mes
+  }
+  if (
+    key == 'fan' &&
+    (parseInt(value!.toString()) < 0 || parseInt(value!.toString()) > 100)
+  ) {
+    const mes: FormState = {
+      type: 'fail',
+      value: 'Invalid value for fan!',
+      key: key,
+    }
+    return mes
+  }
   const res = await fetch(
     `https://io.adafruit.com/api/v2/${process.env.ADA_USERNAME}/feeds/${key}/data`,
     {
@@ -91,6 +110,7 @@ export async function changeDeviceValue(
   const mes: FormState = {
     type: res.status === 200 ? 'success' : 'fail',
     value: responseData.value,
+    key: key,
   }
   return mes
 }
@@ -102,6 +122,14 @@ export async function toggleDevice(prevState: FormState, formData: FormData) {
     const mes: FormState = {
       type: 'fail',
       value: 'Key not found',
+    }
+    return mes
+  }
+  if (value !== '1' && value !== '0') {
+    const mes: FormState = {
+      type: 'fail',
+      value: 'Invalid value for toggle!',
+      key: key,
     }
     return mes
   }
@@ -121,6 +149,7 @@ export async function toggleDevice(prevState: FormState, formData: FormData) {
   const mes: FormState = {
     type: res.status === 200 ? 'success' : 'fail',
     value: responseData.value,
+    key: key,
   }
   return mes
 }
