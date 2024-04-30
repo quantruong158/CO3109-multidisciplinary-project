@@ -65,15 +65,6 @@ export function Login() {
             <Button className='w-full bg-primary' type='submit'>
               Login
             </Button>
-            <Button disabled className='w-full' variant='outline'>
-              Login with Google
-            </Button>
-          </div>
-          <div className='mt-4 text-center text-sm'>
-            Don&apos;t have an account?{' '}
-            <Link className='underline' href='/signup'>
-              Sign up
-            </Link>
           </div>
         </div>
       </form>
