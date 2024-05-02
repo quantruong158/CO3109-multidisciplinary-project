@@ -20,7 +20,10 @@ const SpeedSlider = ({ value }: { value: number }) => {
     if (state.type !== '') {
       toast({
         title: state.type.toUpperCase(),
-        description: `Speed changed to ${state.value}%`,
+        description:
+          state.type === 'fail'
+            ? state.value
+            : `Speed changed to ${state.value}%`,
       })
       router.refresh()
     }

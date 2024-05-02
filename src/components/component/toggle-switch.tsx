@@ -25,7 +25,10 @@ const ToggleSwitch = ({
     if (state.type !== '') {
       toast({
         title: state.type.toUpperCase(),
-        description: `${state.value === '1' ? 'ON' : 'OFF'}`,
+        description:
+          state.type === 'fail'
+            ? state.value
+            : `${state.value === '1' ? 'ON' : 'OFF'}`,
       })
       router.refresh()
     }

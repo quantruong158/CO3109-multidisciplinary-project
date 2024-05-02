@@ -125,7 +125,7 @@ export async function toggleDevice(prevState: FormState, formData: FormData) {
     }
     return mes
   }
-  if (value !== '1' && value !== '0') {
+  if (value !== '1' && value !== null) {
     const mes: FormState = {
       type: 'fail',
       value: 'Invalid value for toggle!',
