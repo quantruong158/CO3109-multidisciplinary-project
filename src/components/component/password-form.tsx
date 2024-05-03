@@ -42,7 +42,6 @@ const PasswordForm = () => {
           name='value'
           value={value}
           onChange={(e) => setValue(e.target.value)}
-          minLength={4}
         />
         <Button onClick={toggleVisibility}>
           {isHiding ? <EyeOff /> : <Eye />}
