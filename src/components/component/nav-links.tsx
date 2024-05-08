@@ -19,14 +19,6 @@ const NavLinks = () => {
           Devices
         </Link>
       </li>
-      <li>
-        <Link
-          href='/account'
-          className={pathname.startsWith('/account') ? 'text-black' : ''}
-        >
-          Account
-        </Link>
-      </li>
     </>
   )
 }

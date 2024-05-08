@@ -1,15 +1,5 @@
 import { Metadata } from 'next'
-import { Button } from '@/components/ui/button'
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card'
 
-import { Input } from '@/components/ui/input'
 export const metadata: Metadata = {
   title: 'Devices',
   description: 'YoloHome devices page',
@@ -17,8 +7,9 @@ export const metadata: Metadata = {
 
 const page = () => {
   return (
-    <>
-    </>
+    <div>
+      <h1 className='text-xl'>HERE YOU CAN CHANGE THE VALUE OF YOUR DEVICES</h1>
+    </div>
   )
 }
 

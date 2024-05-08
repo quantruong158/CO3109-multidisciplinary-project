@@ -1,4 +1,5 @@
 import { Metadata } from 'next'
+import { notFound } from 'next/navigation'
 
 export const metadata: Metadata = {
   title: 'Account',
@@ -6,8 +7,7 @@ export const metadata: Metadata = {
 }
 
 const page = () => {
-  return <div className='mt-20 text-center'>Account page</div>
+  return notFound()
 }
-
 
 export default page
