@@ -1,32 +1,13 @@
 import { cookies } from 'next/headers'
 import { NextRequest, NextResponse } from 'next/server'
+import { feedRepository } from './repositories/feedRepositories'
 
 export async function getAllFeeds() {
-  const res = await fetch(
-    `https://io.adafruit.com/api/v2/${process.env.ADA_USERNAME}/feeds`,
-    {
-      cache: 'no-cache',
-      headers: {
-        'X-AIO-Key': process.env.ADA_KEY,
-      } as HeadersInit,
-    },
-  )
-  const data = await res.json()
-  return data
+  return await feedRepository.getAllFeeds()
 }
 
 export async function getLastDataFromFeed(feedKey: string) {
-  const res = await fetch(
-    `https://io.adafruit.com/api/v2/${process.env.ADA_USERNAME}/feeds/${feedKey}/data/last`,
-    {
-      cache: 'no-cache',
-      headers: {
-        'X-AIO-Key': process.env.ADA_KEY,
-      } as HeadersInit,
-    },
-  )
-  const data = await res.json()
-  return data
+  return await feedRepository.getLastDataFromFeed(feedKey)
 }
 
 export function getSession() {
@@ -48,10 +29,4 @@ export function updateSession(req: NextRequest) {
     expires: new Date(Date.now() + 1000 * 60 * 60 * 24),
   })
   return res
-}
-
-export function getMessage() {
-  const message = cookies().get('message')?.value
-  if (!message) return null
-  return message
 }

@@ -1,5 +1,7 @@
 'use server'
 import { cookies } from 'next/headers'
+import { feedRepository } from './repositories/feedRepositories'
+import { accountRepository } from './repositories/accountRepositories'
 
 type FormState = {
   type: string
@@ -12,14 +14,7 @@ export async function login(prevState: FormState, formData: FormData) {
     email: formData.get('email')?.toString()!,
     password: formData.get('password')?.toString()!,
   })
-  const res = await fetch(`${process.env.BACKEND_URL}/api/account/login`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-    },
-    body: data,
-  })
-  const responseData = await res.json()
+  const responseData = await accountRepository.getAccountData(data)
   if (responseData.code == 200) {
     const token = responseData.token
     const expires = new Date(Date.now() + 1000 * 60 * 60 * 24) // 1d expire
@@ -44,14 +39,7 @@ export async function register(prevState: FormState, formData: FormData) {
     fullName:
       formData.get('fname')?.toString()! + formData.get('lname')?.toString()!,
   })
-  const res = await fetch(`${process.env.BACKEND_URL}/api/account/register`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-    },
-    body: data,
-  })
-  const responseData = await res.json()
+  const responseData = await accountRepository.addUser(data)
   const mes: FormState = {
     type: responseData.code === 200 ? 'success' : 'fail',
     value: responseData.message,
@@ -95,20 +83,12 @@ export async function changeDeviceValue(
     }
     return mes
   }
-  const res = await fetch(
-    `https://io.adafruit.com/api/v2/${process.env.ADA_USERNAME}/feeds/${key}/data`,
-    {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-AIO-Key': process.env.ADA_KEY,
-      } as HeadersInit,
-      body: JSON.stringify({ value }),
-    },
+  const responseData = await feedRepository.addDataToFeed(
+    key,
+    value!.toString(),
   )
-  const responseData = await res.json()
   const mes: FormState = {
-    type: res.status === 200 ? 'success' : 'fail',
+    type: responseData.status === 200 ? 'success' : 'fail',
     value: responseData.value,
     key: key,
   }
@@ -134,20 +114,9 @@ export async function toggleDevice(prevState: FormState, formData: FormData) {
     return mes
   }
   const toggled_value = value === '1' ? '0' : '1'
-  const res = await fetch(
-    `https://io.adafruit.com/api/v2/${process.env.ADA_USERNAME}/feeds/${key}/data`,
-    {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-AIO-Key': process.env.ADA_KEY,
-      } as HeadersInit,
-      body: JSON.stringify({ value: toggled_value }),
-    },
-  )
-  const responseData = await res.json()
+  const responseData = await feedRepository.addDataToFeed(key, toggled_value)
   const mes: FormState = {
-    type: res.status === 200 ? 'success' : 'fail',
+    type: responseData.status === 200 ? 'success' : 'fail',
     value: responseData.value,
     key: key,
   }
